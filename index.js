@@ -1,17 +1,24 @@
-const mysql = require('mysql2');
 
-const Department = require('./classes/department');
+const Database = require('./classes/database');
+const Departments = require('./classes/department');
+const Employees = require('./classes/employee');
+const Roles = require('./classes/role');
 
 const db = require('./connection');
+const cTable = require('console.table');
 
 
-db.query('SHOW TABLES', (err, result) => 
+const manage = new Database(db);
+ const departments = new Departments(db);
+ const employees = new Employees(db);
+ const roles = new Roles(db);
+
+async function init()
 {
-    if (err){console.log(err);}
-    console.log(result);
-});
+    console.table( await manage.showAll());
+    console.table(  await departments.showAll());
+    console.table( await employees.showAll());
+    console.table(  await roles.showAll());
+}
 
-const janitorial = new Department('timmi');
-janitorial.saveToDB(db);
-
-db.query('SELECT * FROM departments', )
+init();

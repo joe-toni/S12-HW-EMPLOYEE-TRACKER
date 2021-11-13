@@ -1,22 +1,18 @@
-class Department
+class Departments
 {
-    constructor(name)
+     constructor(db)
     {
-        this.name = name;
+        this.db = db;
     }
 }
 
 
 
-Department.prototype.getName = function(){return this.name};
-
-Department.prototype.saveToDB = function(db)
+Departments.prototype.showAll = async function()
 {
-    db.query(`INSERT INTO departments (name) VALUES (?)`, this.name,  function(err, result)
-    {
-        if (err) {console.log(err)}
-        console.log(result);
-    });
+    console.log("Displaying All Departments. \n");
+    let all =  await this.db.promise().query('SELECT name AS Departments, id  AS Department_id FROM departments;');
+    return all[0];
 };
 
-module.exports = Department;
+module.exports = Departments;
