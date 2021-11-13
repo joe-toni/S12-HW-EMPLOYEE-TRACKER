@@ -19,6 +19,7 @@
   "homepage": "https://github.com/joe-toni/S12-HW-EMPLOYEE-TRACKER#readme",
   "dependencies": {
     "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
     "mysql2": "^2.3.3-rc.0"
   }
 }
