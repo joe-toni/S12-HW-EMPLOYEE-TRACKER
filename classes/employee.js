@@ -31,18 +31,19 @@ Employees.prototype.showAll = async function()
     return all[0];
 };
 
-Employees.prototype.findID = async function(name)
-{
-    var employeeID = await this.db.promise().query(`SELECT id FROM employees WHERE first_name = "${name}"`);
-    return employeeID[0][0].id;
-}
-
 Employees.prototype.getAll = async function()
 {
     let allEmployees = [];
     let all = await this.db.promise().query(`SELECT CONCAT(first_name," ", last_name)  AS Employee_name FROM employees`);
     all[0].forEach(element => {allEmployees.push(element.Employee_name)});
     return allEmployees;
+};
+
+Employees.prototype.findID = async function(name)
+{
+    let splitName = name.split(" ");
+    var employeeID = await this.db.promise().query(`SELECT id FROM employees WHERE first_name = "${splitName[0]}" and  last_name = "${splitName[1]}"`);
+    return employeeID[0][0].id;
 }
 
 module.exports = Employees;

@@ -64,24 +64,36 @@ async function init()
             let newRole = await inquire.prompt(roles.questions);
             let newRoleDepartment = await inquire.prompt(
                 {
-                    name: "selection",
+                    name: "name",
                     type: "list",
                     message: "What is the department of the new role?",
                     choices: allDepartments
                 });
+            let departmentId = await departments.findID(newRoleDepartment.name)
         }
         else if (nextInput.next === "Add an Employee")
         {
             finished = false;
             let allRoles = await roles.getAll();
+            let allEmployees = await employees.getAll();
             let newEmployeeName = await inquire.prompt(employees.questions);
             let newEmployeeRole = await inquire.prompt(
                 {
-                    name: "selection",
+                    name: "name",
                     type: "list",
                     message: "What is the role of the new employee?",
                     choices: allRoles
                 });
+            let newEmployeeManager = await inquire.prompt(
+                {
+                    name: "name",
+                    type: "list",
+                    message: "Who is the manager of the new employee?",
+                    choices: allEmployees
+                });
+            let roleID = await roles.findID(newEmployeeRole.name);
+            let managerID = await employees.findID(newEmployeeManager.name);
+            console.log(managerID);
         }
     }
 

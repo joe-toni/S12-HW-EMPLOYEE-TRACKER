@@ -36,6 +36,12 @@ Roles.prototype.getAll = async function()
     return allRoles;
 }
 
+Roles.prototype.findID = async function(name)
+{
+    var roleID = await this.db.promise().query(`SELECT id FROM roles WHERE title = "${name}"`);
+    return roleID[0][0].id;
+}
+
 
 module.exports = Roles;
 

@@ -29,6 +29,11 @@ Departments.prototype.getAll = async function()
     return allDepartments;
 }
 
+Departments.prototype.findID = async function(name)
+{
+    var departmentsID = await this.db.promise().query(`SELECT id FROM departments WHERE name = "${name}"`);
+    return departmentsID[0][0].id;
+}
 
 
 module.exports = Departments;
