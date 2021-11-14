@@ -78,6 +78,7 @@ async function init()
             finished = false;
             let allRoles = await roles.getAll();
             let allEmployees = await employees.getAll();
+            allEmployees.push("None");
             let newEmployeeName = await inquire.prompt(employees.questions);
             let newEmployeeRole = await inquire.prompt(
                 {
