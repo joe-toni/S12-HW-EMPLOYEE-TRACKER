@@ -20,7 +20,7 @@ const roles = new Roles(db);
          name: "next",
          type: "list",
          message: "Select the Action you would like to take: ",
-        choices: ['View All Data', 'View All Departments','View All Roles','View All Employees', 'Add a Department', 'Add a Role', 'Add an Employee', "Update Employee Role", 'Quit']
+        choices: ['View All Departments','View All Roles','View All Employees', 'Add a Department', 'Add a Role', 'Add an Employee', "Update Employee Role", 'Quit']
      }
  ]
 
@@ -32,12 +32,7 @@ async function init()
     {
         finished = true;
         let nextInput = await inquire.prompt(mainQuestion);
-        if (nextInput.next === "View All Data")
-        {
-            finished = false;
-            console.table(await manage.showAll());
-        }
-        else if (nextInput.next === "View All Departments")
+        if (nextInput.next === "View All Departments")
         {
             finished = false;
             console.table(await departments.showAll());

@@ -3,8 +3,8 @@ CREATE DATABASE employee_management_db;
 
 USE employee_management_db;
 
-DROP TABLE IF EXISTS departments;
-CREATE TABLE departments
+DROP TABLE IF EXISTS department;
+CREATE TABLE department
 (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
@@ -13,8 +13,8 @@ CREATE TABLE departments
     UNIQUE KEY (name)
 );
 
-DROP TABLE IF EXISTS roles;
-CREATE TABLE roles
+DROP TABLE IF EXISTS role;
+CREATE TABLE role
 (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
@@ -22,15 +22,15 @@ CREATE TABLE roles
     department_id  INT,
 
     FOREIGN KEY (department_id) 
-    REFERENCES departments(id)
+    REFERENCES department(id)
     ON DELETE SET NULL,
 
     PRIMARY KEY (id),
     UNIQUE KEY (title)
 );
 
-DROP TABLE IF EXISTS employees;
-CREATE TABLE employees
+DROP TABLE IF EXISTS employee;
+CREATE TABLE employee
 (
     id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(30),
@@ -39,11 +39,11 @@ CREATE TABLE employees
     manager_id INT,
 
     FOREIGN KEY (role_id)
-    REFERENCES roles (id)
+    REFERENCES role (id)
     ON DELETE SET NULL,
 
     FOREIGN KEY (manager_id)
-    REFERENCES employees(id)
+    REFERENCES employee(id)
     ON DELETE SET NULL,
 
     PRIMARY KEY (id)
