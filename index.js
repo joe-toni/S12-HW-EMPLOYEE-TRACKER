@@ -56,6 +56,7 @@ async function init()
         {
             finished = false;
             let newDepartmentName = await inquire.prompt(departments.questions);
+            await departments.add(newDepartmentName.name);
         }
         else if (nextInput.next === "Add a Role")
         {
@@ -69,7 +70,8 @@ async function init()
                     message: "What is the department of the new role?",
                     choices: allDepartments
                 });
-            let departmentId = await departments.findID(newRoleDepartment.name)
+            let departmentId = await departments.findID(newRoleDepartment.name);
+            await roles.add(newRole.name, newRole.salary, departmentId);
         }
         else if (nextInput.next === "Add an Employee")
         {
@@ -93,10 +95,10 @@ async function init()
                 });
             let roleID = await roles.findID(newEmployeeRole.name);
             let managerID = await employees.findID(newEmployeeManager.name);
-            console.log(managerID);
+            await employees.add(newEmployeeName.firstName, newEmployeeName.lastName, roleID, managerID);
         }
     }
-
+    process.exit();
 }
 
 init();
