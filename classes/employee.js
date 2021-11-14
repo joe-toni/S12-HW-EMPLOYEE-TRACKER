@@ -1,8 +1,13 @@
+//This class is meant to interact with the employee table in our employee_management_db database it uses a variable named db to 
+// represent the database connection which will be provided by the user file upon creation of the class instance. All of the methods
+// are initiated as async so that the user program may correctly wait for a response from our queries before moving on to any other step
 class Employees
 {
      constructor(db)
     {
         this.db = db;
+        //This attribute is meant to hold the text input type prompts  that will be used to create the new db instance since this prompts do 
+        // not require reference any other existing instances for input it can remain constant and thus is stored here directly on the class.
         this.questions = 
         [
             {
@@ -19,6 +24,7 @@ class Employees
     }
 };
 
+//This method uses a prepared query string to format a table which will  be passes back with all the information about existing employees
 Employees.prototype.showAll = async function()
 {
     console.log("\nDisplaying All Employees. \n");
@@ -31,6 +37,7 @@ Employees.prototype.showAll = async function()
     return all[0];
 };
 
+//This function gets all concatenated employee first and last names before saving each one to an array that is returned to the caller
 Employees.prototype.getAll = async function()
 {
     let allEmployees = [];
@@ -39,6 +46,8 @@ Employees.prototype.getAll = async function()
     return allEmployees;
 };
 
+//This function finds the corresponding employee id by finding the employee instance that matches both the first and last name if none is passed in
+//for the name then an integer value of -1 is returned to the caller
 Employees.prototype.findID = async function(name)
 {
     if (name === "None")
@@ -50,6 +59,8 @@ Employees.prototype.findID = async function(name)
     return employeeID[0][0].id;
 };
 
+//This function creates a new instance on the employee table with the manager id value set to null If none exists as determined by previous steps. other wise it uses the 
+// values pass in to INSERT the new row into the employee table before displaying the result using the newly established employe id to locate the correct row
 Employees.prototype.add = async function(first_name, last_name, roleID, managerID)
 {
     if (managerID === -1)
@@ -69,6 +80,8 @@ Employees.prototype.add = async function(first_name, last_name, roleID, managerI
      return "success";
 };
 
+//This function uses the passed in employee id to display the selected instance information before updating the table at that location and again displaying
+// the selected row this time with the updated employee role for comparison
 Employees.prototype.updatetRole = async function(employeeID, roleID)
 {   
     var  query = "SELECT A.id As Employee_id, " +

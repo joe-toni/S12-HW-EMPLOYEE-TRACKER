@@ -1,8 +1,13 @@
+//This class is meant to interact with the employee table in our employee_management_db database it uses a variable named db to 
+// represent the database connection which will be provided by the user file upon creation of the class instance. All of the methods
+// are initiated as async so that the user program may correctly wait for a response from our queries before moving on to any other step
 class Roles
 {
      constructor(db)
     {
         this.db = db;
+        //This attribute is meant to hold the text input type prompts  that will be used to create the new db instance since this prompts do 
+        // not require reference any other existing instances for input they can remain constant and thus is stored here directly on the class.
         this.questions = 
         [
             {
@@ -19,6 +24,7 @@ class Roles
     }
 }
 
+//This method formats the roles table to display along with the associated department name before returning the result to user
 Roles.prototype.showAll = async function()
 {
     console.log("\nDisplaying All Roles. \n");
@@ -28,6 +34,7 @@ Roles.prototype.showAll = async function()
     return all[0];
 };
 
+//This method collects the titles of all existing roles in an array that gets returned to the caller
 Roles.prototype.getAll = async function()
 {
     let allRoles = [];
@@ -36,12 +43,15 @@ Roles.prototype.getAll = async function()
     return allRoles;
 }
 
-Roles.prototype.findID = async function(name)
+//This method uses the passed in role title to find the corresponding id before returning the exact selected value from the resulting table
+Roles.prototype.findID = async function(title)
 {
-    var roleID = await this.db.promise().query(`SELECT id FROM role WHERE title = "${name}"`);
+    var roleID = await this.db.promise().query(`SELECT id FROM role WHERE title = "${title}"`);
     return roleID[0][0].id;
 }
 
+//This method uses the passed in values to update the role table, INSERTING the new row before displaying the results using the newly established
+// role_id to locate the instance on the table and tabling the result.
 Roles.prototype.add = async function(name, salary, department_id)
 {
      await this.db.promise().query(`INSERT INTO role (title, salary, department_id) VALUES ("${name}", "${salary}", "${department_id}");`);
