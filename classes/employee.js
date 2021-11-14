@@ -67,7 +67,27 @@ Employees.prototype.add = async function(first_name, last_name, roleID, managerI
      let result =  await this.db.promise().query(query);
      console.table(result[0]);
      return "success";
-}
+};
+
+Employees.prototype.updatetRole = async function(employeeID, roleID)
+{   
+     var  query = "SELECT A.id As Employee_id, " +
+    " A.first_name, A.last_name, title AS Title, name AS Department_Name, " +
+    "salary AS Salary, CONCAT(B.first_name,' ', B.last_name) AS Manager " +
+    "FROM employees A LEFT JOIN employees B ON A.manager_id = B.id " +
+    ` JOIN roles ON A.role_id = roles.id JOIN departments ON roles.department_id = departments.id WHERE A.id = "${employeeID}" ;`;
+
+    console.log("\nOriginal Employee Data \n");
+    let before = await this.db.promise().query(query);
+    console.table(before[0]);
+
+    await this.db.promise().query(`UPDATE employees SET role_id = "${roleID}" WHERE id = "${employeeID}"`);
+    console.log("\nUpdated Employee Role \n");
+    let result =  await this.db.promise().query(query);
+    console.table(result[0]);
+    return "success";
+
+} 
 
 module.exports = Employees;
 

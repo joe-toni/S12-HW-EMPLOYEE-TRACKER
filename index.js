@@ -20,7 +20,7 @@ const roles = new Roles(db);
          name: "next",
          type: "list",
          message: "Select the Action you would like to take: ",
-        choices: ['View All Data', 'View All Departments','View All Roles','View All Employees', 'Add a Department', 'Add a Role', 'Add an Employee', 'Quit']
+        choices: ['View All Data', 'View All Departments','View All Roles','View All Employees', 'Add a Department', 'Add a Role', 'Add an Employee', "Update Employee Role", 'Quit']
      }
  ]
 
@@ -98,6 +98,30 @@ async function init()
             let managerID = await employees.findID(newEmployeeManager.name);
             await employees.add(newEmployeeName.firstName, newEmployeeName.lastName, roleID, managerID);
         }
+        else if (nextInput.next === "Update Employee Role")
+        {
+            finished = false;
+            let allRoles = await roles.getAll();
+            let allEmployees = await employees.getAll();
+            let selectedEmployee = await inquire.prompt(
+                {
+                    name: "name",
+                    type: "list",
+                    message: "What is the name of the employee you would like to update?",
+                    choices: allEmployees
+                });
+            let newRole = await inquire.prompt(
+                {
+                    name: "name",
+                    type: "list",
+                    message: "What is the role you would like to assign?",
+                    choices: allRoles
+                });
+                let roleID = await roles.findID(newRole.name);
+                let employeeID = await employees.findID(selectedEmployee.name);
+                await employees.updatetRole(employeeID, roleID);
+        }
+
     }
     process.exit();
 }
