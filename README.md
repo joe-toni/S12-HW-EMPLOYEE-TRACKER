@@ -4,8 +4,9 @@
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
         
 ##  Description
-This Project uses a command line interface to help a user manage an sql database with three established tables named department, role, and employee. The query interactions are divided up using class files that reference/represent a corresponding table in the database. The main index file uses inquirer to prompt the user for input, mysql2 to establish a connetion to an sql database. The directory also contains db folder that holds sql files which are used to establish the data base, seed the base, and fire commands for format testing of each table.
+This Project uses a command line interface to help a user manage an sql database with three established tables named department, role, and employee. The query interactions are divided up using class files that reference/represent a corresponding table in the database. The main index file uses inquirer to prompt the user for input, mysql2 to establish a connetion to an sql database. The directory also contains db folder that holds sql files which are used to establish the data base, seed the base, and fire commands for format testing of each table. For a demonstation video of the application in use see the link below.
 
+https://drive.google.com/file/d/1GkkzvWi9YCnaLRzWBlvTvaFjlys4vQCG/view?usp=sharing
 -----
 
 ## Table of Contents
